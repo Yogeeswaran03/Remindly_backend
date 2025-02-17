@@ -10,8 +10,12 @@ import java.util.Optional;
 
 @Service
 public class AuthService {
+
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private TemplateService templateService;  // Inject TemplateService
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -24,7 +28,14 @@ public class AuthService {
 
         // Encrypt the password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+
+        // Save the user to the database
+        User savedUser = userRepository.save(user);
+
+        // Create default templates for the new user
+        templateService.createDefaultTemplates(savedUser);
+
+        return savedUser;
     }
 
     public User authenticate(String email, String password) {
@@ -40,5 +51,9 @@ public class AuthService {
             }
         }
         return null;  // Return null if authentication fails
+    }
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
     }
 }

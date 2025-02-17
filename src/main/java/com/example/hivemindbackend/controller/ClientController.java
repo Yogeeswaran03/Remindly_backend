@@ -58,7 +58,7 @@ public class ClientController {
         existingClient.setName(updatedClient.getName());
         existingClient.setEmail(updatedClient.getEmail());
         existingClient.setInvoiceLink(updatedClient.getInvoiceLink());
-        existingClient.setFollowUpMessage(updatedClient.getFollowUpMessage());
+        existingClient.setTemplate(updatedClient.getTemplate());
         existingClient.setFollowUpStartDate(updatedClient.getFollowUpStartDate());
         existingClient.setFollowUpFrequency(updatedClient.getFollowUpFrequency());
         existingClient.setFollowUpTillDate(updatedClient.getFollowUpTillDate());

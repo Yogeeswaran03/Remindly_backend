@@ -1,8 +1,6 @@
 package com.example.hivemindbackend.model;
 
-
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 
 @Entity
@@ -10,6 +8,47 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "templateId", nullable = false)
+    private Template template;
+
+    private String name;
+    private String email;
+    private String invoiceLink;
+    private LocalDate followUpStartDate;
+    private int followUpFrequency; // in days
+    private LocalDate followUpTillDate;
+    private boolean status;
+
+    // Constructors
+    public Client() {}
+
+    public Client(User user, Template template, String name, String email, String invoiceLink,
+                  LocalDate followUpStartDate, int followUpFrequency, LocalDate followUpTillDate, boolean status) {
+        this.user = user;
+        this.template = template;
+        this.name = name;
+        this.email = email;
+        this.invoiceLink = invoiceLink;
+        this.followUpStartDate = followUpStartDate;
+        this.followUpFrequency = followUpFrequency;
+        this.followUpTillDate = followUpTillDate;
+        this.status = status;
+    }
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public User getUser() {
         return user;
@@ -19,12 +58,12 @@ public class Client {
         this.user = user;
     }
 
-    public Long getId() {
-        return id;
+    public Template getTemplate() {
+        return template;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setTemplate(Template template) {
+        this.template = template;
     }
 
     public String getName() {
@@ -49,14 +88,6 @@ public class Client {
 
     public void setInvoiceLink(String invoiceLink) {
         this.invoiceLink = invoiceLink;
-    }
-
-    public String getFollowUpMessage() {
-        return followUpMessage;
-    }
-
-    public void setFollowUpMessage(String followUpMessage) {
-        this.followUpMessage = followUpMessage;
     }
 
     public LocalDate getFollowUpStartDate() {
@@ -90,19 +121,4 @@ public class Client {
     public void setStatus(boolean status) {
         this.status = status;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
-    private User user;
-
-    private String name;
-    private String email;
-    private String invoiceLink;
-    private String followUpMessage;
-    private LocalDate followUpStartDate;
-    private int followUpFrequency; // in days
-    private LocalDate followUpTillDate;
-    private boolean status;
-
-    // Getters and Setters
 }

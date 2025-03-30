@@ -23,6 +23,13 @@ public class AuthController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @PutMapping("/user/update/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        User updated = authService.updateUserProfile(id, updatedUser);
+        return ResponseEntity.ok(updated);
+    }
+
+
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody User user) {

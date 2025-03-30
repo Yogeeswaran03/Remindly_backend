@@ -20,7 +20,7 @@ public class Template {
     private String templateSubject;
 
     @Lob
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "TEXT")
     private String templateContent;
 
     @Column(nullable = false)
